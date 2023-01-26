@@ -1,0 +1,27 @@
+{
+  "name": "team-project-manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "teams.js",
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest --verbouse"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DBBENSAN/team-project-manager.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DBBENSAN/team-project-manager/issues"
+  },
+  "homepage": "https://github.com/DBBENSAN/team-project-manager#readme",
+  "dependencies": {
+    "inquirer": "^8.2.4",
+    "jest": "^29.4.0"
+  }
+}
