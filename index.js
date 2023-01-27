@@ -10,7 +10,7 @@ const Intern = require("./lib/intern");
 // function writeToFile(fileName, data) {}
 
 
-
+const team = [];
 
 const teamQuest = [
     {
@@ -59,31 +59,40 @@ function init() {
     inquirer.prompt(teamQuest).then((data) => {
         roleQuest(data)
     })
-
 }
 
 function roleQuest(data) {
-    const name = data.name
-    const id = data.id
-    const email = data.email
-    const role = data.role
-    console.log(role)
+    // const name = data.name
+    // const id = data.id
+    // const email = data.email
+    // const role = data.role
+    let { name, id, email, role } = data
+    let employee;
+    console.log(data)
 
     if (role === 'Manager') {
         inquirer.prompt(officeNumberQuest)
-            .then((officeNumber) => {
-                this.employee = new Manager (name, id, email, officeNumber, title)
+            .then((answer) => {
+                let { officeNumber } = answer
+                employee = new Manager (name, id, email, officeNumber);
+                console.log(employee)
+
             })
     }
     if (role === 'Engineer') {
         inquirer.prompt(githubQuest)
-            .then((data, github) => {
-
+            .then((answer) => {
+                let { github } = answer
+                employee = new Engineer (name, id, email, github);
+                console.log(employee)
             })
     }
     if (role === 'Intern') {
         inquirer.prompt(schoolQuest)
-            .then((data, school) => {
+            .then((answer) => {
+                let { school } = answer
+                employee = new Intern (name, id, email, school);
+                console.log(employee)
             })
     }
 }
