@@ -1,9 +1,9 @@
 
 function makeCards(){
-
+    
 }
 
-function generateFile(data) {
+function generateFile() {
     return `
     <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +21,7 @@ function generateFile(data) {
 
     <!-- this is where the cards will append to  -->
     <main>
-
+    ${makeCards(data)}
     </main>
 
     <!-- add a footer for fun -->

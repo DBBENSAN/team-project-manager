@@ -18,25 +18,32 @@ describe('Manager', () => {
             expect('getName' in employee).toEqual(true);
             expect('getId' in employee).toEqual(true);
             expect('getEmail' in employee).toEqual(true);
-            expect('getGithub' in employee).toEqual(true);
+            expect('getOffice' in employee).toEqual(true);
             expect('getRole' in employee).toEqual(true);
-
         })
     })
     describe('getName', () => {
         it('', () => {
-            const employee = new Manager();
-
+            const employee = new Manager('test', 11, 'drago@got.com');
+            expect(employee.getName()).toEqual("test")
         })
     })
-    describe('getName', () => {
+    describe('getID', () => {
         it('', () => {
-            const employee = new Manager();
+            const employee = new Manager('test', 11, 'drago@got.com');
+            expect(employee.getID()).toEqual(11)
         })
     })
-    describe('getName', () => {
+    describe('getEmail', () => {
         it('', () => {
-            const employee = new Manager();
+            const employee = new Manager('test', 11, 'drago@got.com');
+            expect(employee.getEmail()).toEqual('drago@got.com')
+        })
+    })
+    describe('getRole', () => {
+        it('', () => {
+            const employee = new Manager('test', 11, 'drago@got.com');
+            expect(employee.getRole()).toEqual('Manager')
         })
     })
 })
