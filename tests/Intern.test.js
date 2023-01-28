@@ -11,7 +11,7 @@ describe('Intern', () => {
             expect('name' in employee).toEqual(true);
             expect('id' in employee).toEqual(true);
             expect('email' in employee).toEqual(true);
-            expect('officeNumber' in employee).toEqual(true);
+            expect('school' in employee).toEqual(true);
         })
         it('Should return the methods associated with the object', () => {
             const employee = new Intern();
@@ -24,19 +24,19 @@ describe('Intern', () => {
     })
     describe('getName', () => {
         it('', () => {
-            const employee = new Intern('test', 11, 'drago@got.com', '');
+            const employee = new Intern('test', 11, 'drago@got.com');
             expect(employee.getName()).toEqual("test")
         })
     })
-    describe('getID', () => {
+    describe('getId', () => {
         it('', () => {
-            const employee = new Intern('test', 11, 'drago@got.com', '');
-            expect(employee.getID()).toEqual(11)
+            const employee = new Intern('test', 11, 'drago@got.com');
+            expect(employee.getId()).toEqual(11)
         })
     })
     describe('getEmail', () => {
         it('', () => {
-            const employee = new Intern('test', 11, 'drago@got.com', '');
+            const employee = new Intern('test', 11, 'drago@got.com');
             expect(employee.getEmail()).toEqual('drago@got.com')
         })
     })

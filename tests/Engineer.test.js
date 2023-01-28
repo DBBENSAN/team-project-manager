@@ -11,7 +11,7 @@ describe('Engineer', () => {
             expect('name' in employee).toEqual(true);
             expect('id' in employee).toEqual(true);
             expect('email' in employee).toEqual(true);
-            expect('officeNumber' in employee).toEqual(true);
+            expect('github' in employee).toEqual(true);
         })
         it('Should return the methods associated with the object', () => {
             const employee = new Engineer();
@@ -28,10 +28,10 @@ describe('Engineer', () => {
             expect(employee.getName()).toEqual("test")
         })
     })
-    describe('getID', () => {
+    describe('getId', () => {
         it('', () => {
             const employee = new Engineer('test', 11, 'drago@got.com', '');
-            expect(employee.getID()).toEqual(11)
+            expect(employee.getId()).toEqual(11)
         })
     })
     describe('getEmail', () => {

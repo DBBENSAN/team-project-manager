@@ -8,9 +8,6 @@ const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
 
 
-
-
-const teamArray = [];
 const teamQuest = [
     {
         name: 'name',
@@ -59,34 +56,29 @@ const addAnother = [
 ]
 
 function init() {
-    console.log(`SHALL WE`)
+    console.log(`Begin making a team:`)
     inquirer.prompt(teamQuest).then((data) => {
         roleQuest(data)
     })
 }
 
+const teamArray = [];
 function roleQuest(data) {
-    // const name = data.name
-    // const id = data.id
-    // const email = data.email
-    // const role = data.role
     let { name, id, email, role } = data
     let employee;
-    console.log(data)
     if (role === 'Manager') {
         inquirer.prompt(officeNumberQuest)
-            .then((answer) => {
-                let { officeNumber } = answer
-                employee = new Manager(name, id, email, officeNumber);
-                addMember(employee);
-            })
+        .then((answer) => {
+            let { officeNumber } = answer
+            employee = new Manager(name, id, email, officeNumber);
+            addMember(employee);
+        })
     }
     if (role === 'Engineer') {
         inquirer.prompt(githubQuest)
             .then((answer) => {
                 let { github } = answer
                 employee = new Engineer(name, id, email, github);
-                console.log(employee)
                 addMember(employee);
             })
     }
@@ -95,7 +87,6 @@ function roleQuest(data) {
             .then((answer) => {
                 let { school } = answer
                 employee = new Intern(name, id, email, school);
-                console.log(employee)
                 addMember(employee);
             })
     }
@@ -103,75 +94,88 @@ function roleQuest(data) {
 
 function addMember(employee) {
     teamArray.push(employee);
-    // console.log(teamArray)
+
     inquirer.prompt(addAnother).then((answer) => {
         let temp = answer.another
-        // console.log(answer)
         if (temp === false) {
-            
-            writeToFile(generateFile(generateCards(teamArray)))
+
+            writeToFile(generateCards(teamArray));
         } else {
             init();
         }
     })
 }
 
-function generateCards(Array) {
+const generateCards = (array) => {
     const cardArray = [];
-    for (let i = 0; i < Array.length ; i++) {
-        let curr = Array[i]
+    for (let i = 0; i < array.length; i++) {
         const card = `
+      <div class="col">
+      <h2>${array[i].name}</h2>
       <div>
-      <h2>${curr.name}</h2>
-      <div>
-          <p>${curr.id}</p>
-          <p>${curr.email}</p>
-          <p>${curr.role}</p>
+          <p>${array[i].id}</p>
+          <p>${array[i].email}</p>
+          <p>${array[i].role}</p>
       </div>
       </div>
       `
         cardArray.push(card)
-        // console.log('thisis the card', card);
+  
 
     };
-    console.log('Joined Array', cardArray.join(" "));
     return cardArray.join(' ')
 }
 
-function generateFile() {
-    return `
-      <!DOCTYPE html>
-  <html lang="en">
-  <head>
-      <meta charset="UTF-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Team Project Manager</title>
-  </head>
-  <body>
-      <!-- this is where the header goes -->
-      <header>
-  
-      </header>
-  
-      <!-- this is where the cards will append to  -->
-      <main>
-      ${generateCards(Array)}
-      </main>
-  
-      <!-- add a footer for fun -->
-      <footer>
-  
-      </footer>
-      
-  </body>
-  </html>
-      `;
-}
 
-function writeToFile() {
-    fs.appendFile('index.html', data, err => {
-        err ? console.log(err) : console.log("Success!")
+function writeToFile(generateCards) {
+
+    fs.appendFile('./dist/index.html', `
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/style.css">
+    <title>Team Project Manager</title>
+</head>
+<body>
+    <!-- this is where the header goes -->
+    <header class="jumbotron">
+    <h1>Introducing the team!</h1>
+    </header>
+
+    <!-- this is where the cards will append to  -->
+    <main class="container row align-items-start">
+    ${generateCards}
+    </main>
+
+    <!-- add a footer for fun -->
+    <footer>
+
+    </footer>
+    
+</body>
+</html>
+    `
+    , err => {
+        err ? console.log(err) : console.log(`
+⣿⣷⡶⠚⠉⢀⣤⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠠⣴⣿⣿⣿⣿⣶⣤⣤⣤
+⠿⠥⢶⡏⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⢀⣴⣷⣌⢿⣿⣿⣿⣿⣿⣿⣿
+⣍⡛⢷⣠⣿⣿⣿⣿⣿⣟⠻⣯⠽⣿⣿⠟⠁⣠⠿⠿⣿⣿⣎⠻⣿⣿⣿⡿⠟⣿
+⣿⣿⣦⠙⣿⣿⣿⣿⣿⣿⣷⣏⡧⠙⠁⣀⢾⣧    ⠈⣿⡟  ⠙⣫⣵⣶⠇⣋
+⣿⣿⣿⢀⣿⣿⣿⣿⣿⣿⣿⠟⠃⢀⣀⢻⣎⢻⣷⣤⣴⠟  ⣠⣾⣿⢟⣵⡆⢿
+⣿⣯⣄⢘⢻⣿⣿⣿⣿⡟⠁⢀⣤⡙⢿⣴⣿⣷⡉⠉⢀  ⣴⣿⡿⣡⣿⣿⡿⢆
+⠿⣿⣧⣤⡘⢿⣿⣿⠏  ⡔⠉⠉⢻⣦⠻⣿⣿⣶⣾⡟⣼⣿⣿⣱⣿⡿⢫⣾⣿
+⣷⣮⣝⣛⣃⡉⣿⡏  ⣾⣧⡀    ⣿⡇⢘⣿⠋    ⠻⣿⣿⣿⢟⣵⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣌⢧⣴⣘⢿⣿⣶⣾⡿⠁⢠⠿⠁⠜    ⣿⣿⣿⣿⡿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣦⡙⣿⣷⣉⡛⠋    ⣰⣾⣦⣤⣤⣤⣿⢿⠟⢋⣴⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣌⢿⣿⣿⣿⣿⢰⡿⣻⣿⣿⣿⣿⣿⢃⣰⣫⣾⣿⣿⣿
+⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆⠿⠿⠿⠛⢰⣾⡿⢟⣭⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+
+                 SUCCESS 
+        `)
     })
 }
 

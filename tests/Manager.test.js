@@ -28,10 +28,10 @@ describe('Manager', () => {
             expect(employee.getName()).toEqual("test")
         })
     })
-    describe('getID', () => {
+    describe('getId', () => {
         it('', () => {
             const employee = new Manager('test', 11, 'drago@got.com');
-            expect(employee.getID()).toEqual(11)
+            expect(employee.getId()).toEqual(11)
         })
     })
     describe('getEmail', () => {
